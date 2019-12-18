@@ -111,6 +111,7 @@ resource "azurerm_virtual_machine_scale_set" "consul" {
     ip_configuration {
       name = "ConsulIPConfiguration"
       subnet_id = "${var.subnet_id}"
+      primary = true
     }
   }
 
@@ -176,6 +177,7 @@ resource "azurerm_virtual_machine_scale_set" "consul_with_load_balancer" {
       load_balancer_backend_address_pool_ids = [
         "${azurerm_lb_backend_address_pool.consul_bepool.id}"]
       load_balancer_inbound_nat_rules_ids = ["${element(azurerm_lb_nat_pool.consul_lbnatpool.*.id, count.index)}"]
+      primary = true
     }
   }
 
